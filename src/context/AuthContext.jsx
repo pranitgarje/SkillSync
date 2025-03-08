@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-
+import axios from 'axios';
 // Create the context with a default value
 export const AuthContext = createContext({
   user: null,
@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
       setUser(userData);
       localStorage.setItem("jwt", jwt);
       localStorage.setItem("user", JSON.stringify(userData));
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;;
       console.log("Login successful");
     } catch (error) {
       console.error("Login error:", error);
